@@ -1,8 +1,9 @@
-
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="com.mvc.pojo.CourseBean"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="com.mvc.pojo.RegistrationBean"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -79,8 +80,8 @@
 			<div class=" pull-right">
 				<div class="visible-lg visible-md m-t-10">
 					<div class="pull-left p-r-10 p-t-10 fs-16 font-heading">
-						<span class="semi-bold">Welcome, </span> <span class="text-master"><c:out
-								value="${loggeduser.firstName}"></c:out></span>
+						<span class="semi-bold">Welcome, </span> <span class="text-master">
+							<%=session.getAttribute("session_user")%></span>
 					</div>
 					<div class="dropdown pull-right">
 						<button class="profile-dropdown-toggle" type="button"
@@ -95,20 +96,13 @@
 						<ul class="dropdown-menu profile-dropdown" role="menu">
 							<li><a><i class="pg-outdent"></i> My Profile</a></li>
 							<li><a><i class="pg-bag"></i> Help</a></li>
-							<!-- <li class="bg-master-lighter">
-							<form action="Logout" method="post">
-							<button type="submit" class="btn btn-default" style="width:100%">
-							Logout<span class="pull-right"><i class="pg-power"></i></span>
-							</button></form></li> -->
 							<li class="bg-master-lighter">
-								<form name="submitForm" action="Logout" method="post">
-									<a href="javascript:document.submitForm.submit()"
-										class="clearfix"
-										style="padding-top: 3px; padding-bottom: 3px; padding-right: 19px; display: block; opacity: .5; padding-left: 17px; min-width: 138px; line-height: 35px;">
-										<span class="pull-left">Logout</span> <span class="pull-right"><i
-											class="pg-power"></i></span>
-									</a>
-								</form>
+								<!-- <form name="submitForm" action="Logout" method="post"> -->
+								<a href="Logout" class="clearfix"
+								style="padding-top: 3px; padding-bottom: 3px; padding-right: 19px; display: block; opacity: .5; padding-left: 17px; min-width: 138px; line-height: 35px;">
+									<span class="pull-left">Logout</span> <span class="pull-right"><i
+										class="pg-power"></i></span>
+							</a>
 							</li>
 						</ul>
 					</div>
@@ -121,7 +115,7 @@
 					<div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
 						<div class="inner">
 							<ul class="breadcrumb">
-								<li><a href="home.jsp">Home</a></li>
+								<li><a class="active">Home</a></li>
 							</ul>
 						</div>
 					</div>
@@ -138,7 +132,25 @@
 						</div>
 						<div class="panel-body">
 							<div class="row">
-								<div class="col-md-4">
+								<c:forEach var="course" items="${courselist}">
+									<div class="col-md-4">
+										<h5>
+											<c:out value="${course.coursecode}"></c:out>
+											<span class="semi-bold"><c:out
+													value="${course.coursename}"></c:out></span>
+										</h5>
+										<p>
+											<c:out value="${course.coursedesc}"></c:out>
+										</p>
+										<br>
+										<p class="bold no-margin">
+											<a
+												href="Course?courseid=<c:out value="${course.courseid}"></c:out>">See
+												more info for course.</a>
+										</p>
+									</div>
+								</c:forEach>
+								<!-- <div class="col-md-4">
 									<h5>
 										CSI-518 <span class="semi-bold">Software Engineering</span>
 									</h5>
@@ -154,39 +166,7 @@
 										<a href="csi518.jsp">See more info for course.</a>
 									</p>
 								</div>
-								<div class="col-md-4">
-									<h5>
-										CSI-531 <span class="semi-bold">Data Mining</span>
-									</h5>
-									<p>A course on data mining (finding patterns in data)
-										algorithms and their application to interesting data types and
-										situations. We cover the basic algorithms that address the
-										five core data mining tasks: prediction, classification,
-										estimation, clustering and associations. Course projects will
-										involve advanced topics such as algorithm developments for
-										handling large data sets, sequential, spatial and streaming
-										data.</p>
-									<br>
-									<p class="bold no-margin">
-										<a href="csi531.jsp">See more info for course.</a>
-									</p>
-								</div>
-								<div class="col-md-4">
-									<h5>
-										CSI-500 <span class="semi-bold">Operating Systems</span>
-									</h5>
-									<p>Introduction to operating systems. Topics include
-										processes, concurrency, synchronization, deadlock, memory
-										management, segmentation, paging, replacement policies,
-										caching, interprocess communication, file systems, and
-										protection. Heavy emphasis on abstractions, mechanisms,
-										policies, and design. Prerequisites: Csi 333 (formerly Csi
-										202), Csi 310, Mat 367 and one of Csi 400, 402, or 404.</p>
-									<br>
-									<p class="bold no-margin">
-										<a href="csi500.jsp">See more info for course.</a>
-									</p>
-								</div>
+								-->
 							</div>
 						</div>
 					</div>

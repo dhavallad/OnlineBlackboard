@@ -159,15 +159,25 @@
 				<div class="container-fluid container-fixed-lg">
 					<div class="panel panel-default">
 						<div class="panel-body">
-							<div class="col-sm-10">
+							<div class="col-sm-12">
 								<h3>Create a new course</h3>
 								<p>Want it to be more Descriptive and User Friendly, We Made
 									it possible, Use Seperaed Form Layouts Structure to Presentate
 									your Form Fields.</p>
 								<br>
-								<form id="form-work" class="form-horizontal" role="form"
-									autocomplete="off" novalidate="novalidate" method ="post" action="CreateCourseManager">
+								<form id="form-register" class="form-horizontal" role="form"
+									autocomplete="off" novalidate="novalidate" method="post"
+									action="CreateCourse">
 									<div class="form-group">
+										<label for="fname" class="col-sm-3 control-label">Course
+											Code</label>
+										<div class="col-sm-9">
+											<input type="text" id="coursecode" name="coursecode" Placeholder = "CSI 000" 
+												data-a-sign="CSI " data-v-min="0" data-v-max="999"
+												class="autonumeric form-control">
+										</div>
+									</div>
+									<div class="form-group required">
 										<label for="fname" class="col-sm-3 control-label">Course
 											Name</label>
 										<div class="col-sm-9">
@@ -176,7 +186,7 @@
 												aria-required="true">
 										</div>
 									</div>
-									<div class="form-group">
+									<div class="form-group required">
 										<label for="name" class="col-sm-3 control-label">Course
 											Description</label>
 										<div class="col-sm-9">
@@ -188,17 +198,17 @@
 										<label class="col-sm-3 control-label">Total Number of
 											Seats</label>
 										<div class="col-sm-9">
-											<input type="text" data-a-sep=","
-												name = "maxseats" class="autonumeric form-control">
+											<input type="text" data-v-min="0" data-v-max="200"
+												name="maxseats" Placeholder = "Seats Range : 0 - 200" class="autonumeric form-control">
 										</div>
 									</div>
 									<div class="form-group">
 										<label for="position" class="col-sm-3 control-label">Course
 											Length</label>
 										<div class="input-daterange input-group" id="datepicker-range">
-											<input type="text" class="input-sm form-control"
+											<input type="text"  Placeholder = "Course Start Date"  class="input-sm form-control"
 												name="coursestart"> <span class="input-group-addon">to</span>
-											<input type="text" class="input-sm form-control"
+											<input type="text" Placeholder = "Course End Date"  class="input-sm form-control"
 												name="courseend">
 										</div>
 									</div>

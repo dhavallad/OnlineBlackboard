@@ -1,21 +1,26 @@
 package com.mvc.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
+import com.mvc.dao.CourseDAO;
 import com.mvc.dao.LoginDAO;
+import com.mvc.pojo.CourseBean;
 import com.mvc.pojo.LoginBean;
 import com.mvc.pojo.RegistrationBean;
 
 /**
  * Servlet implementation class LoginManager
  */
-@WebServlet("/LoginManager")
+@WebServlet({ "/LoginManager" })
 public class LoginManager extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -47,11 +52,8 @@ public class LoginManager extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		// doGet(request, response);
-
 		String email = request.getParameter("username");
 		String password = request.getParameter("password");
-
-		System.out.println(email + "\\\\\\\\\\\\\\\\" + password);
 
 		LoginBean loginUser = new LoginBean();
 		loginUser.setEmail(email);
@@ -59,17 +61,24 @@ public class LoginManager extends HttpServlet {
 
 		LoginDAO logindao = new LoginDAO();
 		RegistrationBean loggeduser = logindao.AuthUser(loginUser);
-//		boolean userValidate = logindao.AuthUser(loginUser);
+		// boolean userValidate = logindao.AuthUser(loginUser);
 
 		if (loggeduser != null) {
-			request.setAttribute("loggeduser", loggeduser);
-			System.out.println("----------Login Sucucessfully");
-//			response.sendRedirect("home.jsp");
-			request.getRequestDispatcher("/home.jsp").forward(request, response);
+			HttpSession session = request.getSession();
+			session.setAttribute("session_user", loggeduser.getFirstName());
+			session.setAttribute("session_userid", loggeduser.getUserid());
+			if (session.isNew()) {
+				System.out.println("New session is jutst created");
+			} else {
+				System.out.println("This is old session");
+			}
+			System.out.println("--- Login Sucucessfully ---");
+			response.sendRedirect("Home");
+			// request.getRequestDispatcher("Home").forward(request, response);
 		} else {
-			System.out.println("----------Login Failed.");
-			request.setAttribute("loginpageMessage", "Invalid user credentials.");
-			request.getRequestDispatcher("/login.jsp").forward(request, response);
+			System.out.println("Login Failed - " + getClass());
+			request.setAttribute("loginpageMessage", "Invalid user credentials! Please check email/password.");
+			request.getRequestDispatcher("/login.jsp").include(request, response);
 		}
 	}
 

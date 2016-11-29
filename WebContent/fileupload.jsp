@@ -149,9 +149,13 @@
 					<div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
 						<div class="inner">
 							<ul class="breadcrumb">
-								<li><a href="home.jsp">Courses</a></li>
-								<li><a href="csi518.jsp" class="active">Software
-										Engineering</a></li>
+								<li><a href="Home">Home</a></li>
+								<li><a
+									href="Course?courseid=<%=session.getAttribute("session_courseid")%>"><%=session.getAttribute("session_coursename")%></a></li>
+								<li><a
+									href="CourseContent?courseid=<%=session.getAttribute("session_courseid")%>">Course
+										Content</a></li>
+								<li><a class="active">Upload file</a></li>
 							</ul>
 						</div>
 					</div>
@@ -165,15 +169,16 @@
 									it possible, Use Seperaed Form Layouts Structure to Presentate
 									your Form Fields.</p>
 								<br>
-								<form id="form-work" class="form-horizontal" role="form"
-									autocomplete="off" novalidate="novalidate" method="post"
-									action="CreateCourseManager">
+								<form id="form-upload" class="form-horizontal" role="form"
+									 enctype="multipart/form-data"
+									method="post"
+									action="FileUploadHandler">
 									<div class="form-group">
 										<label for="fname" class="col-sm-3 control-label">Content
 											Name</label>
 										<div class="col-sm-9">
 											<input type="text" class="form-control" id="contentname"
-												placeholder="Course name" name="contentname" required=""
+												placeholder="Content name" name="contentname" required=""
 												aria-required="true">
 										</div>
 									</div>
@@ -188,9 +193,9 @@
 									<div class="form-group">
 										<label for="fname" class="col-sm-3 control-label">Content
 											File </label>
-										<div class="col-sm-9">
+										<div class="col-sm-4">
 											<input type="file" class="form-control" id="contentfile"
-												placeholder="Course name" value="Software"
+												placeholder="File rename" value="Software"
 												name="contentfile" required="" aria-required="true">
 										</div>
 									</div>
@@ -204,7 +209,6 @@
 											<button class="btn btn-default btn-cons" type="reset">
 												<i class="fa fa-close"></i> <span class="bold">Clear</span>
 											</button>
-											
 										</div>
 									</div>
 								</form>
@@ -255,5 +259,16 @@
 	<script src="assets/js/form_elements.js" type="text/javascript"></script>
 	<script type="text/javascript"
 		src="assets/plugins/jquery-autonumeric/autoNumeric.js"></script>
+	<script
+		src="assets/plugins/jquery-validation/js/jquery.validate.min.js"
+		type="text/javascript"></script>
+	<script src="pages/js/pages.min.js"></script>
+	<script src="assets/js/form_elements.js" type="text/javascript"></script>
+	<script src="assets/js/scripts.js" type="text/javascript"></script>
+	<script>
+		$(function() {
+			$('#form-upload').validate()
+		})
+	</script>
 </body>
 </html>

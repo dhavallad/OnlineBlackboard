@@ -4,9 +4,19 @@ import java.util.Date;
 
 public class CourseBean {
 	private String courseid;
-	private String coursename;	
+	private String coursename;
+	private String coursecode;
 	private String coursedesc;
 	private String maxstudent;
+	private String instructorid;
+	
+	
+	public String getInstructorid() {
+		return instructorid;
+	}
+	public void setInstructorid(String instructorid) {
+		this.instructorid = instructorid;
+	}
 	public String getCourseid() {
 		return courseid;
 	}
@@ -45,6 +55,12 @@ public class CourseBean {
 	}
 	public void setEnddate(Date enddate) {
 		this.enddate = enddate;
+	}
+	public String getCoursecode() {
+		return coursecode;
+	}
+	public void setCoursecode(String coursecode) {
+		this.coursecode = coursecode;
 	}
 	
 }

@@ -14,11 +14,12 @@ import com.mvc.dao.DiscussionDAO;
 import com.mvc.pojo.QuestionBean;
 
 import jdk.nashorn.internal.ir.RuntimeNode.Request;
+import oracle.jrockit.jfr.events.RequestableEventEnvironment;
 
 /**
  * Servlet implementation class DiscussionQuestionsServlet
  */
-@WebServlet("/DiscussionQuestionsServlet")
+@WebServlet({"/DiscussionQuestionsServlet","/DiscussionQuestions?discussionid="})
 public class DiscussionQuestionsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -38,19 +39,23 @@ public class DiscussionQuestionsServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-		System.out.println(request.getParameter("id"));
+		String discussionid = request.getParameter("discussionid");
+		System.out.println(discussionid);
 		
-		DiscussionDAO discussiondao = new DiscussionDAO();
-		boolean isDeleted = discussiondao.deleteQuestion(request.getParameter("id"));
-		if(isDeleted){
-			System.out.println("deleted");
-		}
-		else{
-			System.out.println("not deleted");
-		}
-		response.sendRedirect("discussion.jsp");
-//		RequestDispatcher rd = request.getRequestDispatcher("discussion.jsp");
+		
+//		response.getWriter().append("Served at: ").append(request.getContextPath());
+//		System.out.println(request.getParameter("id"));
+//		
+//		DiscussionDAO discussiondao = new DiscussionDAO();
+//		boolean isDeleted = discussiondao.deleteQuestion(request.getParameter("id"));
+//		if(isDeleted){
+//			System.out.println("deleted");
+//		}
+//		else{
+//			System.out.println("not deleted");
+//		}
+//		response.sendRedirect("discussion.jsp");
+////		RequestDispatcher rd = request.getRequestDispatcher("discussion.jsp");
 //		rd.forward(request, response);
 	}
 
@@ -68,7 +73,7 @@ public class DiscussionQuestionsServlet extends HttpServlet {
 			ArrayList<QuestionBean> viewcourse = new ArrayList<QuestionBean>();
 			DiscussionDAO discussiondao = new DiscussionDAO();
 
-			viewcourse = discussiondao.LoadQuestions();
+//			viewcourse = discussiondao.LoadQuestions();
 			// for (int i = 0; i < viewcourse.size(); i++) {
 			// System.out.println("Servlet--"+viewcourse.get(i).getCoursename());
 			//

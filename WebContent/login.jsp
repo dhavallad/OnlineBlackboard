@@ -42,14 +42,14 @@
 <script type="text/javascript" src="assets/js/course/csi518.js"></script>
 </head>
 <body class="fixed-header">
-	<%
+	<%-- <%
 		if (session != null) {
 			if (session.getAttribute("session_user") != null) {
 				System.out.println("Login Page - Welcome to profile"+session.getAttribute("session_user"));
 				response.sendRedirect("home.jsp");
 			}
 		}
-	%>
+	%> --%>
 	<div class="register-container full-height sm-p-t-30">
 		<div class="container-sm-height full-height">
 			<div class="row row-sm-height">
@@ -92,7 +92,7 @@
 						<div class="row m-t-10">
 							<div class="col-md-5"></div>
 							<div class="col-md-7 text-right">
-								Haven't registered yet? Click here to <a href="register.jsp"
+								Haven't registered yet? Click here to <a href="Registration"
 									class="text-info small">Register</a>
 							</div>
 						</div>

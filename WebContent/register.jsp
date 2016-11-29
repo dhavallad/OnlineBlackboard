@@ -99,7 +99,7 @@
 					
 					
 					<form id="form-register" class="p-t-15" role="form" method="post"
-						action="RegistrationManager">
+						action="Registration">
 						<div class="row">
 							<div class="col-sm-6">
 								<div class="form-group form-group-default required">
@@ -251,7 +251,7 @@
 		src="assets/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
 	<script
 		src="assets/plugins/bootstrap-timepicker/bootstrap-timepicker.min.js"></script>
-	<script src="pages/js/pages.min.js"></script>
+	<!-- <script src="pages/js/pages.min.js"></script> -->
 	<script src="assets/js/form_elements.js" type="text/javascript"></script>
 	<script src="assets/js/scripts.js" type="text/javascript"></script>
 	<script>

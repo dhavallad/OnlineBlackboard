@@ -1,3 +1,6 @@
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="com.mvc.pojo.CourseBean"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -126,20 +129,12 @@
 						<ul class="dropdown-menu profile-dropdown" role="menu">
 							<li><a href="#"><i class="pg-outdent"></i> My Profile</a></li>
 							<li><a href="#"><i class="pg-bag"></i> Help</a></li>
-							<!-- <li class="bg-master-lighter">
-							<form action="Logout" method="post">
-							<button type="submit" class="btn btn-default" style="width:100%">
-							Logout<span class="pull-right"><i class="pg-power"></i></span>
-							</button></form></li> -->
-							<li class="bg-master-lighter">
-								<form name="submitForm" action="Logout" method="post">
-									<a href="javascript:logout();" class="clearfix"
-										style="padding-top: 3px; padding-bottom: 3px; padding-right: 19px; display: block; opacity: .5; padding-left: 17px; min-width: 138px; line-height: 35px;">
-										<span class="pull-left">Logout</span> <span class="pull-right"><i
-											class="pg-power"></i></span>
-									</a>
-								</form>
-							</li>
+							<li class="bg-master-lighter"><a href="Logout"
+								class="clearfix"
+								style="padding-top: 3px; padding-bottom: 3px; padding-right: 19px; display: block; opacity: .5; padding-left: 17px; min-width: 138px; line-height: 35px;">
+									<span class="pull-left">Logout</span> <span class="pull-right"><i
+										class="pg-power"></i></span>
+							</a></li>
 						</ul>
 					</div>
 				</div>
@@ -151,9 +146,8 @@
 					<div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
 						<div class="inner">
 							<ul class="breadcrumb">
-								<li><a href="home.jsp">Courses</a></li>
-								<li><a href="csi518.jsp" class="active">Software
-										Engineering</a></li>
+								<li><a href="Home">Home</a></li>
+								<li><a class="active"><%=session.getAttribute("session_coursename")%></a></li>
 							</ul>
 						</div>
 					</div>
@@ -161,18 +155,12 @@
 				<div class="container-fluid container-fixed-lg">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<h3>Software Engineering</h3>
+							<h3>${courseInfo.coursecode}-${courseInfo.coursename}</h3>
 						</div>
 						<div class="panel-body">
 							<div class="row">
 								<div class="col-md-12">
-									<p class="m-b-20">Software engineering principles, the role
-										of abstraction in programming, abstract data types,
-										modularization and module interfaces, specifications, and
-										teamwork. Concurrent programming models, synchronization and
-										interprocess communication. Project work in contemporary
-										concurrent and object-oriented languages. Prerequisites:
-										Graduate Csi standing or permission of instructor, Csi 310</p>
+									<p class="m-b-20">${courseInfo.coursedesc}</p>
 								</div>
 							</div>
 							<div class="row">
@@ -182,12 +170,14 @@
 							</div>
 							<div class="row">
 								<div class="col-md-12">
-									<p class="m-b-20">Maximum Student : 50</p>
+									<p class="m-b-20">Maximum Student :
+										${courseInfo.maxstudent}</p>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-md-12">
-									<p class="m-b-20">Instructor : Dhaval Lad</p>
+									<p class="m-b-20">Instructor : ${instructorInfo.firstName}
+										${instructorInfo.lastName}</p>
 								</div>
 							</div>
 							<div class="row">
@@ -199,7 +189,8 @@
 										<div class="panel-body p-t-5">
 											<p>This section contains the all the materials uploaded
 												for the this course.</p>
-											<a href="coursecontent.jsp">More</a>
+											<a href="CourseContent?courseid=${courseInfo.courseid}"><b>Go
+													to Course Content</b></a>
 										</div>
 									</div>
 								</div>
@@ -209,9 +200,10 @@
 											<div class="panel-title">Assignment Section</div>
 										</div>
 										<div class="panel-body p-t-5">
-											<p>This section contains the all the materials uploaded
-												for the this course.</p>
-											<a href="#">More</a>
+											<p>This section contains the all assignments for the this
+												course.</p>
+											<a href="Assignments?courseid=${courseInfo.courseid}"><b>Go
+													to Assignment Section</b></a>
 										</div>
 									</div>
 								</div>
@@ -221,29 +213,14 @@
 											<div class="panel-title">Discussion Board</div>
 										</div>
 										<div class="panel-body p-t-5">
-											<p>This section contains the all the materials uploaded
-												for the this course.</p>
-											<a href="DiscussionQuestionsServlet">More</a>
-											<form id="form-register" class="p-t-15" role="form"
-												method="post" action="DiscussionQuestionsServlet">
-												<button class="btn btn-primary btn-cons m-t-10"
-													type="submit">discussion</button>
-											</form>
+											<p>This section contains the all question discussion for
+												the this course.</p>
+											<a href="DiscussionBoard?courseid=${courseInfo.courseid}"><b>Go
+													to Discussion Board</b></a>
 										</div>
 									</div>
 								</div>
 							</div>
-							<!-- <form id="form-register" class="p-t-15" role="form" method="post"
-								action="CourseListManager">
-								<button class="btn btn-primary btn-cons m-t-10" type="submit">Create
-								</button>
-							</form>
-							<form id="form-register" class="p-t-15" role="form" method="post"
-								action="DiscussionQuestionsServlet">
-								<button class="btn btn-primary btn-cons m-t-10" type="submit">discussion
-								</button>
-							</form>
-						 -->
 						</div>
 					</div>
 				</div>

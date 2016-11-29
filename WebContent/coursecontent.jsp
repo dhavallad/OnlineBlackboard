@@ -147,8 +147,10 @@
 					<div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
 						<div class="inner">
 							<ul class="breadcrumb">
-								<li><a href="home.jsp">Courses</a></li>
-								<li><a href="csi531.jsp" class="active">Data Mining</a></li>
+								<li><a href="Home">Home</a></li>
+								<li><a
+									href="Course?courseid=<%=session.getAttribute("session_courseid")%>"><%=session.getAttribute("session_coursename")%></a></li>
+								<li><a class="active">Course Content</a></li>
 							</ul>
 						</div>
 					</div>
@@ -158,23 +160,13 @@
 						<div class="panel-heading m-l-10">
 							<h3>Course Content</h3>
 							<hr>
-							<!-- <div class="panel-title">Software Engineering
-</div>
- -->
-							<!-- <div class="tools">
-<a class="collapse" href="javascript:;"></a>
-<a class="config" data-toggle="modal" href="#grid-config"></a>
-<a class="reload" href="javascript:;"></a>
-<a class="remove" href="javascript:;"></a>
-</div>
- -->
 						</div>
 						<div class="panel-body">
 							<div class="padding-20 bg-white">
 								<ul class="pager wizard">
 									<li class="">
 										<button class="btn btn-primary pull-right" type="button"
-											onclick="window.location='fileupload.jsp'">
+											onclick="window.location='UploadCourseMaterial'">
 											<span>Upload New File</span>
 										</button>
 									</li>
@@ -182,40 +174,47 @@
 							</div>
 							<div class="row m-l-80">
 								<div class="table-responsive col-md-10	">
+									<c:if test="${not empty contentpagemessage}">
+										<div class="pgn pgn-bar">
+											<div class="alert alert-danger">
+												<span><c:out value="${contentpagemessage}"></c:out></span>
+											</div>
+										</div>
+									</c:if>
+									<%session.setAttribute("contentpagemessage",null);%>
 									<table class="table">
 										<thead>
 											<tr>
 												<th class="">Course Contents</th>
+												<th></th>
 											</tr>
 										</thead>
 										<tbody id="pastcomments">
-											<tr>
-												<td><a href="#"><p class="text-black">File Name
-															1</p></a>
-													<p class="small hint-text">Posted On: 12/12/1212</p></td>
-											</tr>
-											<tr>
-												<td><a href="#"><p class="text-black">File Name
-															2</p></a>
-													<p class="small hint-text">Posted On: 12/12/1212</p></td>
-											</tr>
-											<tr>
-												<td><a href="#"><p class="text-black">File Name
-															3</p></a>
-													<p class="small hint-text">1. describe what you were
-														assigned or have volunteered, 2. describe what you have
-														completed, 3. for each of your team members, evaluate
-														their performance, 4. submit your code</p></td>
-											</tr>
-											<%-- <c:forEach var="question" items="${questions}">
-											
-											<tr>
-												<td><a href="questiondiscussion.jsp?questionid=${question.quesitonid}"><p class="text-black"><c:out value="${question.question}"></c:out></p></a>
-													<p class="small hint-text">Posted By - <c:out value="${question.user_firstname}"></c:out>&nbsp;<c:out value="${question.user_lastname}"></c:out>
-														&nbsp;&nbsp; Posted On: <c:out value="${question.postdate}"></c:out></p></td>
-											</tr>
-											
-											</c:forEach> --%>
+											<c:if test="${empty contentlist}">
+												<tr>
+													<td class="col-md-10">No Course Content Found.</td>
+												</tr>
+											</c:if>
+											<c:forEach var="content" items="${contentlist}">
+												<tr>
+													<td class="col-md-9"><a
+														href="ViewContent?contentid=${content.contentid}">
+															<p class="text-black">${content.contentname}</p>
+													</a>
+														<p class="small hint-text">${content.contentdesc}</p>
+														<p class="small hint-text">Posted On:
+															${content.postdate}</p></td>
+													<td class="col-md-1"><div class="btn-group sm-m-t-3">
+															<!-- <button type="button" class="btn btn-default">
+																<i class="fa fa-pencil"></i>
+															</button> -->
+															<button type="button" class="btn btn-default"
+																onclick="window.location='UpdateCourseContent?action=delete&contenid=${content.contentid}'">
+																<i class="fa fa-trash-o"></i>
+															</button>
+														</div></td>
+												</tr>
+											</c:forEach>
 										</tbody>
 									</table>
 								</div>

@@ -38,7 +38,8 @@ public class RegistrationManager extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+//		response.getWriter().append("Served at: ").append(request.getContextPath());
+		request.getRequestDispatcher("/register.jsp").forward(request, response);
 	}
 
 	/**
@@ -71,8 +72,8 @@ public class RegistrationManager extends HttpServlet {
 			e.printStackTrace();
 		}
 
+		
 		RegistrationBean registerBean = new RegistrationBean();
-
 		registerBean.setFirstName(firstname);
 		registerBean.setLastName(lastname);
 		registerBean.setEmail(email);
@@ -86,19 +87,15 @@ public class RegistrationManager extends HttpServlet {
 				+ " - " + phone + " - " + password);
 
 		RegistrationDAO registerDao = new RegistrationDAO();
-		int userRegistered = registerDao.registerUser(registerBean);
-
-		if (userRegistered == 1)
-		// message to user on Home page
-		{
-			request.setAttribute("loginpageMessage","You're registered successfully! Please log in.");
+		System.out.println(email);
+		boolean isAvaliable = registerDao.isEmailAvaliable(email);
+		System.out.println("isAvaliable"+isAvaliable);
+		if(!isAvaliable){
+			request.setAttribute("loginpageMessage","Email id already exists.");
 			request.getRequestDispatcher("/login.jsp").forward(request, response);
-		} else // On Failure, display a meaningful message to the User.
-		{
-			request.setAttribute("error","Oops!! Something went wrong.");
-			request.getRequestDispatcher("/register.jsp").forward(request, response);
 		}
-		// } catch (ClassNotFoundException e) {
+		
+				// } catch (ClassNotFoundException e) {
 		// // TODO Auto-generated catch block
 		// e.printStackTrace();
 		// }

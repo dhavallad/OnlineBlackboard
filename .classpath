@@ -12,7 +12,8 @@
 	<classpathentry kind="lib" path="/Users/dhavallad/Documents/Software Engineering/javax.jar"/>
 	<classpathentry kind="lib" path="/Users/dhavallad/Documents/Software Engineering/mysql-connector-java-5.0.8-bin.jar"/>
 	<classpathentry kind="lib" path="/Users/dhavallad/Downloads/jstl-1.2.jar"/>
-	<classpathentry kind="lib" path="/Users/dhavallad/Downloads/servlet-api-3.0.jar/servlet-api-3.0.jar"/>
-	<classpathentry kind="lib" path="/Users/dhavallad/Downloads/servlet-3_0-final-jar_and_schema/javax.servlet.jar"/>
+	<classpathentry kind="lib" path="/Users/dhavallad/Downloads/FileUploadDatabase/javax.servlet-3.0.jar"/>
+	<classpathentry kind="lib" path="/Users/dhavallad/Downloads/untitled folder/commons-fileupload-1.2.2.jar"/>
+	<classpathentry kind="lib" path="/Users/dhavallad/Downloads/untitled folder/commons-io-2.4.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

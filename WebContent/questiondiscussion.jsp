@@ -1,3 +1,10 @@
+<%@page import="sun.security.krb5.Asn1Exception"%>
+<%@page import="com.mvc.pojo.QuestionBean"%>
+<%@page import="com.mvc.pojo.AnswerBean"%>
+<%@page import="java.util.*"%>
+<%@page import="com.mvc.dao.DiscussionDAO"%>
+<%@page import="java.util.Dictionary"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -144,8 +151,13 @@
 					<div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
 						<div class="inner">
 							<ul class="breadcrumb">
-								<li><a href="home.jsp">Courses</a></li>
-								<li><a href="csi531.jsp" class="active">Data Mining</a></li>
+								<li><a href="Home">Home</a></li>
+								<li><a
+									href="Course?courseid=<%=session.getAttribute("session_courseid")%>"><%=session.getAttribute("session_coursename")%></a></li>
+								<li><a
+									href="DiscussionBoard?courseid=<%=session.getAttribute("session_courseid")%>">Discussion
+										Board</a></li>
+								<li><a class="active">Question Discussion</a></li>
 							</ul>
 						</div>
 					</div>
@@ -153,57 +165,88 @@
 				<div class="container-fluid container-fixed-lg">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<h3>Discussion Board - Data Mining</h3>
-							<!-- <div class="panel-title">Software Engineering
-</div>
- -->
-							<!-- <div class="tools">
-<a class="collapse" href="javascript:;"></a>
-<a class="config" data-toggle="modal" href="#grid-config"></a>
-<a class="reload" href="javascript:;"></a>
-<a class="remove" href="javascript:;"></a>
-</div>
- -->
+							<h3>Question Discussion</h3>
 						</div>
 						<div class="panel-body">
-						<div class="row m-l-100">
-							<div class="col-md-11">
-							<h3 class="semi-bold">Question</h3>
-							<div class="card share full-width"">
-								<div class="card-header clearfix">
-									<h5>Jeff Curtis</h5>
-									<h6>
-										Posted on <span class="location semi-bold"><i
-											class="fa fa-clock-o"></i> 12/12/2016</span>
-									</h6>
+							<div class="row m-l-100">
+								<div class="col-md-11">
+									<h3 class="semi-bold">
+										Question - ${question.quesitonid}
+										<%-- <%=request.getParameter("questionid")%> --%>
+									</h3>
+									<div class="card share full-width"">
+										<div class="card-header clearfix">
+											<h5>${question.user_firstname}&nbsp;${question.user_lastname}
+											</h5>
+											<h6>
+												Posted on <span class="location semi-bold"><i
+													class="fa fa-clock-o"></i> ${question.postdate}</span>
+											</h6>
+										</div>
+										<div class="card-description">
+											<p class="semi-bold">${question.question}</p>
+										</div>
+									</div>
 								</div>
-								<div class="card-description">
-									<p class="semi-bold">
-										What you think, you become. What you feel, you attract. What
-										you imagine, you create - Buddha.
-									</p>
-								</div>
-							</div></div></div>
+							</div>
 							<div class="table-responsive m-l-100 m-t-50 col-md-10">
+								<c:if test="${not empty questiondiscussionpagemessage}">
+									<div class="pgn pgn-bar">
+										<div class="alert alert-danger">
+											<span><c:out value="${questiondiscussionpagemessage}"></c:out></span>
+										</div>
+									</div>
+								</c:if>
+								<%
+									session.setAttribute("questiondiscussionpagemessage", null);
+								%>
 								<table class="table">
 									<thead>
 										<tr>
 											<th class="">Answers</th>
+											<th class=""></th>
 										</tr>
 									</thead>
 									<tbody id="pastcomments">
+										<c:if test="${empty setanswers}">
+											<tr>
+												<td class="col-md-10">No Answers Posted.</td>
+											</tr>
+										</c:if>
+										<c:forEach var="answer" items="${setanswers}">
+											<tr>
+												<td class="col-md-10"><p class="text-black">${answer.answer}</p>
+													<p class="small hint-text">
+														<i class="fa fa-user"></i> ${answer.user_firstname} ${answer.user_lastname} <i
+															class="fa fa-clock-o m-l-20"></i> ${answer.postdate}
+													</p></td>
+												<td class="col-md-1">
+													<!-- <button type="button" class="btn btn-default">
+																<i class="fa fa-pencil"></i>
+															</button> -->
+													<button type="button" class="btn btn-default"
+														onclick="window.location='UpdateDiscussionAnswer?action=delete&answerid=${answer.answerrid}'">
+														<i class="fa fa-trash-o"></i>
+													</button>
+												</td>
+											</tr>
+										</c:forEach>
 									</tbody>
 								</table>
 							</div>
 							<div class="row m-l-100">
-								<div class="col-md-11">
-									<h3 class="m-t-30 m-b-20">Post Answer</h3>
-									<textarea class="form-control" id="textareaname"
-										placeholder="Enter you comment..."></textarea>
-									<button
-										class="text-center btn btn-complete btn-cons m-t-10 pull-right"
-										onclick="Javascript:saveComment()">Post</button>
-								</div>
+								<form id="form-work" class="form-horizontal" role="form"
+									autocomplete="off" novalidate="novalidate" method="post"
+									action="PostDiscussionAnswer">
+									<div class="col-md-11">
+										<h3 class="m-t-30 m-b-20">Post Answer</h3>
+										<textarea class="form-control" id="textareaanswer"
+											name="textareaanswer" placeholder="Enter you answer..."></textarea>
+										<button
+											class="text-center btn btn-complete btn-cons m-t-10 pull-right"
+											type="submit">Post</button>
+									</div>
+								</form>
 							</div>
 						</div>
 					</div>
@@ -257,18 +300,5 @@
 		src="assets/plugins/bootstrap3-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
 	<script src="assets/js/form_elements.js" type="text/javascript"></script>
 	<script src="assets/plugins/moment/moment.min.js"></script>
-	<script>
-		window.onload = function() {
-			DisplayData();
-		}
-		/* (function() {
-			DisplayData();	   
-		})();
-		 */
-		function logout() {
-			clearStorage();
-			document.submitForm.submit();
-		}
-	</script>
 </body>
 </html>

@@ -41,6 +41,9 @@
 							<li><a href="javascript:;">Discussion Board</a></li>
 						</ul></li>
 				</ul></li>
+			<li class=""><a href="CreateCourse"><span
+					class="title">Create Course</span></a> <span
+				class="icon-thumbnail"><i class="pg-home"></i></span>
 		</ul>
 		<div class="clearfix"></div>
 	</div>
