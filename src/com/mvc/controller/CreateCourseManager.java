@@ -41,7 +41,16 @@ public class CreateCourseManager extends HttpServlet {
 		// TODO Auto-generated method stub
 		// response.getWriter().append("Served at:
 		// ").append(request.getContextPath());
-		request.getRequestDispatcher("/createnewcourse.jsp").forward(request, response);
+		HttpSession session = request.getSession();
+		if (session.getAttribute("session_userid") != null) {
+			request.getRequestDispatcher("/createnewcourse.jsp").forward(request, response);
+		} else {
+			System.out.println("Session not set.");
+			request.setAttribute("loginpageMessage", "Please login first to access page.");
+			request.getRequestDispatcher("/login.jsp").forward(request, response);
+
+		}
+
 	}
 
 	/**
@@ -54,7 +63,7 @@ public class CreateCourseManager extends HttpServlet {
 		// TODO Auto-generated method stub
 		// doGet(request, response);
 		HttpSession session = request.getSession();
-		if (session != null) {
+		if (session.getAttribute("session_userid") != null) {
 			String coursecode = request.getParameter("coursecode");
 			String coursename = request.getParameter("coursename");
 			String coursedesc = request.getParameter("coursedesc");
@@ -94,7 +103,8 @@ public class CreateCourseManager extends HttpServlet {
 			} else {
 				boolean createCourseFlag = coursedao.CreateCourse(course);
 				if (createCourseFlag) {
-//					request.setAttribute("loginpageMessage", "Course Created successfully.");
+					// request.setAttribute("loginpageMessage", "Course Created
+					// successfully.");
 					System.out.println("Course Created successfully.....");
 					response.sendRedirect("Home");
 				} else // On Failure, display a meaningful message to the User.
@@ -106,6 +116,10 @@ public class CreateCourseManager extends HttpServlet {
 
 			}
 
+		} else {
+			System.out.println("Session not set.");
+			request.setAttribute("loginpageMessage", "Please login first to access page.");
+			request.getRequestDispatcher("/login.jsp").forward(request, response);
 		}
 
 	}

@@ -35,7 +35,7 @@ public class UpdateDiscussionAnswer extends HttpServlet {
 		// response.getWriter().append("Served at:
 		// ").append(request.getContextPath());
 		HttpSession session = request.getSession();
-		if (session != null) {
+		if (session.getAttribute("session_userid") != null) {
 			System.out.println("Inside" + getClass());
 			String id = request.getParameter("answerid");
 			if (request.getParameter("action").equals("delete")) {
@@ -50,6 +50,9 @@ public class UpdateDiscussionAnswer extends HttpServlet {
 							"QuestionDiscussion?questionid=" + session.getAttribute("session_questionid"));
 				}
 			}
+		}else{
+			request.setAttribute("loginpageMessage", "Please login first to access page.");
+			request.getRequestDispatcher("/login.jsp").forward(request, response);
 		}
 	}
 

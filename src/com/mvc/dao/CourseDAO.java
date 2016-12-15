@@ -214,6 +214,29 @@ public class CourseDAO {
 
 	}
 
+	public boolean isFileExists(String contentname) {
+
+		Connection con = null;
+		PreparedStatement preparedStatement = null;
+
+		try {
+
+			con = DBConnection.getConnection();
+			String query = "select * from tblCourseContent where contentname = ?";
+			preparedStatement = con.prepareStatement(query);
+			preparedStatement.setString(1, contentname);
+
+			ResultSet rs = preparedStatement.executeQuery();
+			if (rs.next()) {
+				System.out.println("Content already exits" + getClass());
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return true;
+	}
+
 	public boolean isCourseCreated(String coursecode) {
 		Connection con = null;
 		PreparedStatement preparedStatement = null;
@@ -255,7 +278,7 @@ public class CourseDAO {
 				cm.setContentdesc(rs.getString("contentdetail"));
 				cm.setContentpath(rs.getString("contentfilename"));
 				cm.setPostdate(rs.getDate("uploadate"));
-				
+
 				contentList.add(cm);
 
 			}
@@ -267,7 +290,7 @@ public class CourseDAO {
 		return null;
 
 	}
-	
+
 	public CourseContentBean getContent(String contentid) {
 		Connection con = null;
 		PreparedStatement preparedStatement = null;
@@ -282,14 +305,14 @@ public class CourseDAO {
 			while (rs.next()) {
 				// System.out.println(rs.getString("course/name"));
 				CourseContentBean cm = new CourseContentBean();
-//				cm.setContentid(rs.getString("contentid"));
+				// cm.setContentid(rs.getString("contentid"));
 				cm.setContentname(rs.getString("contentname"));
 				cm.setContentdesc(rs.getString("contentdetail"));
 				cm.setContentpath(rs.getString("contentfilename"));
 				cm.setPostdate(rs.getDate("uploadate"));
 				return cm;
 			}
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -297,8 +320,7 @@ public class CourseDAO {
 		return null;
 
 	}
-	
-	
+
 	public boolean deleteContent(String id) {
 
 		Connection con = null;

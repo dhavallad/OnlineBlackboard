@@ -38,7 +38,15 @@ public class PostDiscussion extends HttpServlet {
 		// response.getWriter().append("Served at:
 		// ").append(request.getContextPath());
 		System.out.println("zzzzzzzzzzzzz");
-		request.getRequestDispatcher("/postdiscussion.jsp").forward(request, response);
+		HttpSession session = request.getSession();
+		if (session.getAttribute("session_userid") != null) {
+			request.getRequestDispatcher("/postdiscussion.jsp").forward(request, response);
+		} else {
+			System.out.println("Session not set.");
+			request.setAttribute("loginpageMessage", "Please login first to access page.");
+			request.getRequestDispatcher("/login.jsp").forward(request, response);
+		}
+
 	}
 
 	/**
@@ -51,7 +59,7 @@ public class PostDiscussion extends HttpServlet {
 		// doGet(request, response);
 		HttpSession session = request.getSession();
 		System.out.println(getClass());
-		if (session != null) {
+		if (session.getAttribute("session_userid") != null) {
 			String question = request.getParameter("dis_question");
 			String userid = session.getAttribute("session_userid").toString();
 			String courseid = session.getAttribute("session_courseid").toString();
@@ -78,12 +86,19 @@ public class PostDiscussion extends HttpServlet {
 			} else // On Failure, display a meaningful message to the User.
 			{
 				System.out.println("Oops!! Something went wrong. COurse not created.");
-				request.getSession().setAttribute("discussionlistmessage", "Oops!! Something went wrong. Question not posted.");
+				request.getSession().setAttribute("discussionlistmessage",
+						"Oops!! Something went wrong. Question not posted.");
 				response.sendRedirect("DiscussionBoard?courseid=" + courseid);
-//				request.setAttribute("error", "Oops!! Something went wrong.");
-//				request.getRequestDispatcher("/error.html").forward(request, response);
+				// request.setAttribute("error", "Oops!! Something went
+				// wrong.");
+				// request.getRequestDispatcher("/error.html").forward(request,
+				// response);
 			}
 
+		} else {
+			System.out.println("Session not set.");
+			request.setAttribute("loginpageMessage", "Please login first to access page.");
+			request.getRequestDispatcher("/login.jsp").forward(request, response);
 		}
 
 	}

@@ -42,7 +42,7 @@
 	}
 </script>
 </head>
-<body class="fixed-header   ">
+<body class="fixed-header">
 	<jsp:include page="sidebar.jsp"></jsp:include>
 	<div class="page-container">
 		<div class="header ">

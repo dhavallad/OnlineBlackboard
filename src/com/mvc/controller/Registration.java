@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.mvc.dao.RegistrationDAO;
 import com.mvc.pojo.RegistrationBean;
@@ -38,8 +39,12 @@ public class Registration extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		System.out.println(getClass());
 		request.getRequestDispatcher("/register.jsp").forward(request, response);
+
+		// response.getWriter().append("Served at:
+		// ").append(request.getContextPath());
+
 	}
 
 	/**
@@ -50,6 +55,8 @@ public class Registration extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		// doGet(request, response);
+		System.out.println(getClass());
+
 		String firstname = request.getParameter("fname");
 		String lastname = request.getParameter("lname");
 		String email = request.getParameter("email");
@@ -103,7 +110,6 @@ public class Registration extends HttpServlet {
 				request.getRequestDispatcher("/register.jsp").forward(request, response);
 			}
 		}
-
 	}
 
 	public Boolean isStu(String str) {

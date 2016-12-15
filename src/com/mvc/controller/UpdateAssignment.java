@@ -36,19 +36,24 @@ public class UpdateAssignment extends HttpServlet {
 		// response.getWriter().append("Served at:
 		// ").append(request.getContextPath());
 		HttpSession session = request.getSession();
-		if (session != null) {
+		if (session.getAttribute("session_userid") != null) {
 			System.out.println("upadteassib");
 			String id = request.getParameter("assignmentid");
 			if (request.getParameter("action").equals("delete")) {
 				boolean flag = deleteAssignment(id);
 				if (flag) {
-//					request.setAttribute("errormess", "Assignment Deleted Successfully.");
-//					request.getRequestDispatcher("Assignments?courseid="+session.getAttribute("session_courseid")).forward(request, response);
+					// request.setAttribute("errormess", "Assignment Deleted
+					// Successfully.");
+					// request.getRequestDispatcher("Assignments?courseid="+session.getAttribute("session_courseid")).forward(request,
+					// response);
 					request.getSession().setAttribute("assignmentlistmessage", "Assignment Deleted Successfully.");
-					response.sendRedirect("Assignments?courseid="+session.getAttribute("session_courseid"));
-//					response.sendRedirect("Assignments?courseid="+session.getAttribute("session_courseid"));
+					response.sendRedirect("Assignments?courseid=" + session.getAttribute("session_courseid"));
+					// response.sendRedirect("Assignments?courseid="+session.getAttribute("session_courseid"));
 				}
 			}
+		} else {
+			request.setAttribute("loginpageMessage", "Please login first to access page.");
+			request.getRequestDispatcher("/login.jsp").forward(request, response);
 		}
 
 	}

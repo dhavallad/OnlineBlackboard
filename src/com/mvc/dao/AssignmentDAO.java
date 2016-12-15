@@ -20,6 +20,31 @@ public class AssignmentDAO {
 	//
 	// }
 
+	public boolean isAssigmentExists(String name) {
+
+		Connection con = null;
+		PreparedStatement preparedStatement = null;
+
+		try {
+
+			con = DBConnection.getConnection();
+			String query = "select * from tblAssignment where assignmentname = ?";
+			preparedStatement = con.prepareStatement(query);
+			preparedStatement.setString(1, name);
+
+			ResultSet rs = preparedStatement.executeQuery();
+			if (rs.next()) {
+				System.out.println("Assignment already exits" + getClass());
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return true;
+	}
+	
+	
+	
 	public boolean createAssignment(AssignmentBean assignment) {
 
 		String name = assignment.getName();

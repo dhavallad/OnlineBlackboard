@@ -214,12 +214,12 @@ public class DiscussionDAO {
 			preparedStatement.setString(1, id);
 			int flag = preparedStatement.executeUpdate();
 			
-			String query1 = "DELETE FROM tblDiscussionAnswer WHERE questionid= ?";
-			preparedStatement = con.prepareStatement(query1);
-			preparedStatement.setString(1, id);
-			int flag1 = preparedStatement.executeUpdate();
+//			String query1 = "DELETE FROM tblDiscussionAnswer WHERE questionid= ?";
+//			preparedStatement = con.prepareStatement(query1);
+//			preparedStatement.setString(1, id);
+//			int flag1 = preparedStatement.executeUpdate();
 
-			if (flag != 0 && flag1 != 0){
+			if (flag != 0){
 				System.out.println("Deleted inside both flag");
 				return true;
 			}

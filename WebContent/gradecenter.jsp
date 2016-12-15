@@ -34,6 +34,18 @@
 <link
 	href="assets/plugins/bootstrap3-wysihtml5/bootstrap3-wysihtml5.min.css"
 	rel="stylesheet" type="text/css" />
+<link
+	href="assets/plugins/jquery-datatable/media/css/jquery.dataTables.css"
+	rel="stylesheet" type="text/css" />
+<link
+	href="assets/plugins/jquery-datatable/extensions/FixedColumns/css/dataTables.fixedColumns.min.css"
+	rel="stylesheet" type="text/css" />
+<link
+	href="assets/plugins/datatables-responsive/css/datatables.responsive.css"
+	rel="stylesheet" type="text/css" media="screen" />
+<link href="pages/css/pages-icons.css" rel="stylesheet" type="text/css">
+<link class="main-stylesheet" href="pages/css/pages.css"
+	rel="stylesheet" type="text/css" />
 <!-- <link href="assets/plugins/bootstrap-tag/bootstrap-tagsinput.css" rel="stylesheet" type="text/css"/> -->
 <script type="text/javascript" src="assets/js/course/csi531.js"></script>
 <script type="text/javascript">
@@ -45,32 +57,7 @@
 </script>
 </head>
 <body class="fixed-header   ">
-	<nav class="page-sidebar" data-pages="sidebar">
-		<div class="sidebar-header">
-			<!-- <img src="assets/img/logo_white.png" alt="logo" class="brand"
-				data-src="assets/img/logo_white.png"
-				data-src-retina="assets/img/logo_white_2x.png" width="78"
-				height="22"> -->
-		</div>
-		<div class="sidebar-menu">
-			<ul class="menu-items">
-				<li class="m-t-30"><a href="home.jsp"><span class="title">Home</span></a>
-					<span class="icon-thumbnail"><i class="pg-home"></i></span></li>
-				<li class="active"><a href="javascript:;"><span
-						class="title">Courses </span> <span class="arrow"></span></a> <span
-					class="icon-thumbnail"><i class="pg-menu_lv"></i></span>
-					<ul class="sub-menu">
-						<li><a href="csi518.jsp">Software Engineering</a> <span
-							class="icon-thumbnail">518</span></li>
-						<li class="active"><a href="csi531.jsp">Data Mining</a> <span
-							class="icon-thumbnail">531</span></li>
-						<li><a href="csi500.jsp">Operating Systems</a> <span
-							class="icon-thumbnail">500</span></li>
-					</ul></li>
-			</ul>
-			<div class="clearfix"></div>
-		</div>
-	</nav>
+	<jsp:include page="sidebar.jsp"></jsp:include>
 	<div class="page-container">
 		<div class="header ">
 			<div class="pull-left full-height visible-sm visible-xs">
@@ -147,8 +134,10 @@
 					<div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
 						<div class="inner">
 							<ul class="breadcrumb">
-								<li><a href="home.jsp">Courses</a></li>
-								<li><a href="csi531.jsp" class="active">Data Mining</a></li>
+								<li><a href="Home">Home</a></li>
+								<li><a href="Course?courseid="
+									<%=session.getAttribute("session_courseid")%>><%=session.getAttribute("session_coursename")%></a></li>
+								<li><a class="active">Grade Center</a></li>
 							</ul>
 						</div>
 					</div>
@@ -156,7 +145,7 @@
 				<div class="container-fluid container-fixed-lg">
 					<div class="panel panel-default">
 						<div class="panel-heading m-l-10">
-							<h3>Course Content - Subject Name </h3>
+							<h3>Grade Center</h3>
 							<hr>
 							<!-- <div class="panel-title">Software Engineering
 </div>
@@ -178,7 +167,7 @@
 												<div class="panel-title">Detail Grade Center</div>
 											</div>
 											<div class="panel-body">
-												<div class="table-responsive">
+												<!-- <div class="table-responsive">
 													<table class="table table-hover table-condensed" id="">
 														<thead>
 															<tr>
@@ -231,6 +220,73 @@
 															
 														</tbody>
 													</table>
+												</div> -->
+												<div class="table-responsive">
+													<div id="condensedTable_wrapper"
+														class="dataTables_wrapper form-inline no-footer">
+														<table
+															class="table table-hover table-condensed dataTable no-footer"
+															id="condensedTable" role="grid">
+															<thead>
+																<tr role="row">
+																	<th style="width: 109px;" class="sorting_asc"
+																		tabindex="0" aria-controls="condensedTable"
+																		rowspan="1" colspan="1"
+																		aria-label="Title: activate to sort column descending"
+																		aria-sort="ascending">Name</th>
+																	<th style="width: 106px;" class="sorting" tabindex="0"
+																		aria-controls="condensedTable" rowspan="1" colspan="1"
+																		aria-label="Key: activate to sort column ascending">Assignment
+																		1</th>
+																	<th style="width: 155px;" class="sorting" tabindex="0"
+																		aria-controls="condensedTable" rowspan="1" colspan="1"
+																		aria-label="Condensed: activate to sort column ascending">Assignment
+																		2</th>
+																	<th style="width: 155px;" class="sorting" tabindex="0"
+																		aria-controls="condensedTable" rowspan="1" colspan="1"
+																		aria-label="Condensed: activate to sort column ascending">Assignment
+																		3</th>
+																</tr>
+															</thead>
+															<tbody>
+																<tr role="row" class="odd">
+																	<td class="v-align-middle semi-bold sorting_1">Kuku
+																		Lad</td>
+																	<td class="v-align-middle">18</td>
+																	<td class="v-align-middle">18</td>
+																	<td class="v-align-middle semi-bold">15</td>
+																</tr>
+																<tr role="row" class="even">
+																	<td class="v-align-middle semi-bold sorting_1">Dhaval
+																		Lad</td>
+																	<td class="v-align-middle">18</td>
+																	<td class="v-align-middle">20</td>
+																	<td class="v-align-middle semi-bold">19</td>
+																</tr>
+																<tr role="row" class="odd">
+																	<td class="v-align-middle semi-bold sorting_1">Jainam
+																		Patel</td>
+																	<td class="v-align-middle">10</td>
+																	<td class="v-align-middle">18</td>
+																	<td class="v-align-middle semi-bold">16</td>
+																</tr>
+																<tr role="row" class="even">
+																	<td class="v-align-middle semi-bold sorting_1">Neel
+																		Patel</td>
+																	<td class="v-align-middle">20</td>
+																	<td class="v-align-middle">18</td>
+																	<td class="v-align-middle semi-bold">10</td>
+																</tr>
+																<tr role="row" class="even">
+																	<td class="v-align-middle semi-bold sorting_1">John
+																		Dow</td>
+																	<td class="v-align-middle">10</td>
+																	<td class="v-align-middle">18</td>
+																	<td class="v-align-middle semi-bold">8</td>
+																</tr>
+															</tbody>
+														</table>
+													</div>
 												</div>
 											</div>
 										</div>
@@ -289,6 +345,21 @@
 			src="assets/plugins/bootstrap3-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
 		<script src="assets/js/form_elements.js" type="text/javascript"></script>
 		<script src="assets/plugins/moment/moment.min.js"></script>
+		<script
+			src="assets/plugins/jquery-datatable/media/js/jquery.dataTables.min.js"
+			type="text/javascript"></script>
+		<script
+			src="assets/plugins/jquery-datatable/extensions/TableTools/js/dataTables.tableTools.min.js"
+			type="text/javascript"></script>
+		<script
+			src="assets/plugins/jquery-datatable/extensions/Bootstrap/jquery-datatable-bootstrap.js"
+			type="text/javascript"></script>
+		<script type="text/javascript"
+			src="assets/plugins/datatables-responsive/js/datatables.responsive.js"></script>
+		<script type="text/javascript"
+			src="assets/plugins/datatables-responsive/js/lodash.min.js"></script>
+		<script src="pages/js/pages.min.js"></script>
 		<script src="assets/js/tables.js" type="text/javascript"></script>
+		<script src="assets/js/scripts.js" type="text/javascript"></script>
 </body>
 </html>

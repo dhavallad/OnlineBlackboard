@@ -47,32 +47,7 @@
 </script>
 </head>
 <body class="fixed-header   ">
-	<nav class="page-sidebar" data-pages="sidebar">
-		<div class="sidebar-header">
-			<!-- <img src="assets/img/logo_white.png" alt="logo" class="brand"
-				data-src="assets/img/logo_white.png"
-				data-src-retina="assets/img/logo_white_2x.png" width="78"
-				height="22"> -->
-		</div>
-		<div class="sidebar-menu">
-			<ul class="menu-items">
-				<li class="m-t-30"><a href="home.jsp"><span class="title">Home</span></a>
-					<span class="icon-thumbnail"><i class="pg-home"></i></span></li>
-				<li class="active"><a href="javascript:;"><span
-						class="title">Courses </span> <span class="arrow"></span></a> <span
-					class="icon-thumbnail"><i class="pg-menu_lv"></i></span>
-					<ul class="sub-menu">
-						<li class="active"><a href="csi518.jsp">Software
-								Engineering</a> <span class="icon-thumbnail">518</span></li>
-						<li><a href="csi531.jsp">Data Mining</a> <span
-							class="icon-thumbnail">531</span></li>
-						<li><a href="csi500.jsp">Operating Systems</a> <span
-							class="icon-thumbnail">500</span></li>
-					</ul></li>
-			</ul>
-			<div class="clearfix"></div>
-		</div>
-	</nav>
+	<jsp:include page="sidebar.jsp"></jsp:include>
 	<div class="page-container">
 		<div class="header ">
 			<div class="pull-left full-height visible-sm visible-xs">
@@ -149,9 +124,8 @@
 					<div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
 						<div class="inner">
 							<ul class="breadcrumb">
-								<li><a href="home.jsp">Courses</a></li>
-								<li><a href="csi518.jsp" class="active">Software
-										Engineering</a></li>
+								<li><a href="Home">Home</a></li>
+								<li><a class="active">Create New Course</a></li>
 							</ul>
 						</div>
 					</div>
@@ -166,15 +140,15 @@
 									your Form Fields.</p>
 								<br>
 								<form id="form-register" class="form-horizontal" role="form"
-									autocomplete="off" novalidate="novalidate" method="post"
+									autocomplete="off" method="post"
 									action="CreateCourse">
 									<div class="form-group">
 										<label for="fname" class="col-sm-3 control-label">Course
 											Code</label>
 										<div class="col-sm-9">
-											<input type="text" id="coursecode" name="coursecode" Placeholder = "CSI 000" 
-												data-a-sign="CSI " data-v-min="0" data-v-max="999"
-												class="autonumeric form-control">
+											<input type="text" id="coursecode" name="coursecode"
+												Placeholder="CSI 000" data-a-sign="CSI " data-v-min="0"
+												data-v-max="999" class="autonumeric form-control" required>
 										</div>
 									</div>
 									<div class="form-group required">
@@ -199,16 +173,18 @@
 											Seats</label>
 										<div class="col-sm-9">
 											<input type="text" data-v-min="0" data-v-max="200"
-												name="maxseats" Placeholder = "Seats Range : 0 - 200" class="autonumeric form-control">
+												name="maxseats" Placeholder="Seats Range : 0 - 200"
+												class="autonumeric form-control">
 										</div>
 									</div>
 									<div class="form-group">
 										<label for="position" class="col-sm-3 control-label">Course
 											Length</label>
 										<div class="input-daterange input-group" id="datepicker-range">
-											<input type="text"  Placeholder = "Course Start Date"  class="input-sm form-control"
-												name="coursestart"> <span class="input-group-addon">to</span>
-											<input type="text" Placeholder = "Course End Date"  class="input-sm form-control"
+											<input type="text" Placeholder="Course Start Date"
+												class="input-sm form-control" name="coursestart"> <span
+												class="input-group-addon">to</span> <input type="text"
+												Placeholder="Course End Date" class="input-sm form-control"
 												name="courseend">
 										</div>
 									</div>
@@ -217,7 +193,7 @@
 										<div class="col-sm-3"></div>
 										<div class="col-sm-9">
 											<button class="btn btn-success" type="submit">Submit</button>
-											<button class="btn btn-default">
+											<button class="btn btn-default" type="reset">
 												<i class="pg-close"></i> Clear
 											</button>
 										</div>
@@ -270,5 +246,12 @@
 	<script src="assets/js/form_elements.js" type="text/javascript"></script>
 	<script type="text/javascript"
 		src="assets/plugins/jquery-autonumeric/autoNumeric.js"></script>
+	<script src="assets/js/form_elements.js" type="text/javascript"></script>
+	<script src="assets/js/scripts.js" type="text/javascript"></script>
+	<script>
+		$(function() {
+			$('#form-register').validate()
+		})
+	</script>
 </body>
 </html>

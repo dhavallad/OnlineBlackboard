@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.mvc.dao.AssignmentDAO;
 import com.mvc.dao.DiscussionDAO;
@@ -39,16 +40,23 @@ public class DiscussionBoard extends HttpServlet {
 		// TODO Auto-generated method stub
 		// response.getWriter().append("Served at:
 		// ").append(request.getContextPath());
-		String courseid = request.getParameter("courseid");
-		System.out.println(request.getParameter("courseid") + getClass());
+		HttpSession session = request.getSession();
+		if (session.getAttribute("session_userid") != null) {
+			String courseid = request.getParameter("courseid");
+			System.out.println(request.getParameter("courseid") + getClass());
 
-		ArrayList<QuestionBean> questionList = new ArrayList<QuestionBean>();
-		DiscussionDAO discussiondao = new DiscussionDAO();
+			ArrayList<QuestionBean> questionList = new ArrayList<QuestionBean>();
+			DiscussionDAO discussiondao = new DiscussionDAO();
 
-		questionList = discussiondao.LoadQuestions(courseid);
-		request.setAttribute("questionList", questionList);
-		RequestDispatcher rd = request.getRequestDispatcher("discussionlist.jsp");
-		rd.forward(request, response);
+			questionList = discussiondao.LoadQuestions(courseid);
+			request.setAttribute("questionList", questionList);
+			RequestDispatcher rd = request.getRequestDispatcher("discussionlist.jsp");
+			rd.forward(request, response);
+		} else {
+			System.out.println("Session not set.");
+			request.setAttribute("loginpageMessage", "Please login first to access page.");
+			request.getRequestDispatcher("/login.jsp").forward(request, response);
+		}
 
 	}
 

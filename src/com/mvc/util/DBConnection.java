@@ -17,6 +17,7 @@ public class DBConnection {
         try {
             //Step 2: Load MySQL Java driver
             Class.forName(DRIVER_CLASS);
+            System.out.println("Driver Loaded.");
         } catch (ClassNotFoundException e) {
         	System.out.println(e.getMessage());
             e.printStackTrace();

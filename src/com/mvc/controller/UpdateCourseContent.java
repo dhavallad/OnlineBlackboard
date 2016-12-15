@@ -14,7 +14,7 @@ import com.mvc.dao.CourseDAO;
 /**
  * Servlet implementation class UpdateCourseContent
  */
-@WebServlet({"/UpdateCourseContent","/UpdateCourseContent?contentid="})
+@WebServlet({ "/UpdateCourseContent", "/UpdateCourseContent?contentid=" })
 public class UpdateCourseContent extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -36,18 +36,24 @@ public class UpdateCourseContent extends HttpServlet {
 		// response.getWriter().append("Served at:
 		// ").append(request.getContextPath());
 		HttpSession session = request.getSession();
-		if (session != null) {
+		if (session.getAttribute("session_userid") != null) {
 			System.out.println("upadteassib");
 			String id = request.getParameter("contenid");
 			if (request.getParameter("action").equals("delete")) {
 				boolean flag = deleteContent(id);
 				if (flag) {
-//					request.setAttribute("errormess", "Content Deleted Successfully.");
-//					request.getRequestDispatcher("Assignments?courseid=" + session.getAttribute("session_courseid")).forward(request, response);
+					// request.setAttribute("errormess", "Content Deleted
+					// Successfully.");
+					// request.getRequestDispatcher("Assignments?courseid=" +
+					// session.getAttribute("session_courseid")).forward(request,
+					// response);
 					request.getSession().setAttribute("contentpagemessage", "Content Deleted Successfully.");
-					response.sendRedirect("CourseContent?courseid="+session.getAttribute("session_courseid"));
+					response.sendRedirect("CourseContent?courseid=" + session.getAttribute("session_courseid"));
 				}
 			}
+		} else {
+			request.setAttribute("loginpageMessage", "Please login first to access page.");
+			request.getRequestDispatcher("/login.jsp").forward(request, response);
 		}
 
 	}
@@ -61,8 +67,7 @@ public class UpdateCourseContent extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-	
-	
+
 	public boolean deleteContent(String assignmentid) {
 
 		CourseDAO dao = new CourseDAO();
@@ -74,6 +79,5 @@ public class UpdateCourseContent extends HttpServlet {
 		return false;
 
 	}
-
 
 }

@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.mvc.dao.AssignmentDAO;
 import com.mvc.pojo.AssignmentBean;
@@ -40,13 +41,21 @@ public class ViewAssignment extends HttpServlet {
 		// response.getWriter().append("Served at:
 		// ").append(request.getContextPath());
 		// System.out.println("Asdaskjdhaskd");
-		String assignmentid = request.getParameter("assignmentid");
-		System.out.println(assignmentid + getClass());
-		AssignmentDAO dao = new AssignmentDAO();
-		AssignmentBean assignment = dao.getAssignment(assignmentid);
-		request.setAttribute("assignmentInfo", assignment);
-		RequestDispatcher rd = request.getRequestDispatcher("assignmentinfo.jsp");
-		rd.forward(request, response);
+		HttpSession session = request.getSession();
+		if (session.getAttribute("session_userid") != null) {
+			String assignmentid = request.getParameter("assignmentid");
+			System.out.println(assignmentid + getClass());
+			AssignmentDAO dao = new AssignmentDAO();
+			AssignmentBean assignment = dao.getAssignment(assignmentid);
+			request.setAttribute("assignmentInfo", assignment);
+			RequestDispatcher rd = request.getRequestDispatcher("assignmentinfo.jsp");
+			rd.forward(request, response);
+
+		} else {
+			request.setAttribute("loginpageMessage", "Please login first to access page.");
+			request.getRequestDispatcher("/login.jsp").forward(request, response);
+		}
+
 	}
 
 	/**

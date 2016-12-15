@@ -42,32 +42,7 @@
 </script>
 </head>
 <body class="fixed-header   ">
-	<nav class="page-sidebar" data-pages="sidebar">
-		<div class="sidebar-header">
-			<!-- <img src="assets/img/logo_white.png" alt="logo" class="brand"
-				data-src="assets/img/logo_white.png"
-				data-src-retina="assets/img/logo_white_2x.png" width="78"
-				height="22"> -->
-		</div>
-		<div class="sidebar-menu">
-			<ul class="menu-items">
-				<li class="m-t-30"><a href="home.jsp"><span class="title">Home</span></a>
-					<span class="icon-thumbnail"><i class="pg-home"></i></span></li>
-				<li class="active"><a href="javascript:;"><span
-						class="title">Courses </span> <span class="arrow"></span></a> <span
-					class="icon-thumbnail"><i class="pg-menu_lv"></i></span>
-					<ul class="sub-menu">
-						<li class=""><a href="csi518.jsp">Software Engineering</a> <span
-							class="icon-thumbnail">518</span></li>
-						<li><a href="csi531.jsp">Data Mining</a> <span
-							class="icon-thumbnail">531</span></li>
-						<li class="active"><a href="csi500.jsp">Operating Systems</a>
-							<span class="icon-thumbnail">500</span></li>
-					</ul></li>
-			</ul>
-			<div class="clearfix"></div>
-		</div>
-	</nav>
+	<jsp:include page="sidebar.jsp"></jsp:include>
 	<div class="page-container">
 		<div class="header ">
 			<div class="pull-left full-height visible-sm visible-xs">

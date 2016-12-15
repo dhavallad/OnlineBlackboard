@@ -42,7 +42,7 @@ public class QuestionDiscussion extends HttpServlet {
 
 		String questionId = request.getParameter("questionid");
 		HttpSession session = request.getSession();
-		if (session != null) {
+		if (session.getAttribute("session_userid") != null) {
 			session.setAttribute("session_questionid", questionId);
 			QuestionBean questionInfo = new DiscussionDAO().getQuestionInfo(questionId);
 			ArrayList<AnswerBean> answersArrayList = new DiscussionDAO().getAnswers(questionId);
@@ -51,6 +51,9 @@ public class QuestionDiscussion extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("questiondiscussion.jsp");
 			rd.forward(request, response);
 
+		} else {
+			request.setAttribute("loginpageMessage", "Please login first to access page.");
+			request.getRequestDispatcher("/login.jsp").forward(request, response);
 		}
 
 		/*

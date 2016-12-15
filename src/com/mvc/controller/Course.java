@@ -18,50 +18,59 @@ import com.mvc.pojo.RegistrationBean;
 /**
  * Servlet implementation class ViewCourse
  */
-@WebServlet({"/Course","/Course?courseid="})
+@WebServlet({ "/Course", "/Course?courseid=" })
 public class Course extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public Course() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-//		response.getWriter().append("Served at: ").append(request.getContextPath());
-		
-		HttpSession session = request.getSession();
-		if(session!=null){
-			String courseid = request.getParameter("courseid");
-			CourseDAO coursedao = new CourseDAO();
-			CourseBean courseInfo = coursedao.getSingleCourse(courseid);
-			session.setAttribute("session_courseid",courseid);
-			session.setAttribute("session_coursename",courseInfo.getCoursename());
-			
-			RegistrationDAO regdao = new RegistrationDAO();
-			RegistrationBean user = regdao.getUserInfo(courseInfo.getInstructorid());
-			
-			System.out.println(courseInfo.getCoursename());
-			request.setAttribute("courseInfo", courseInfo);
-			request.setAttribute("instructorInfo", user);
-//			System.out.println(courseInfo.getCoursename());
-			RequestDispatcher rd = request.getRequestDispatcher("courseinfo.jsp");
-			rd.forward(request, response);	
-		}
-		
+	public Course() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		// response.getWriter().append("Served at:
+		// ").append(request.getContextPath());
+
+		HttpSession session = request.getSession();
+		if (session.getAttribute("session_userid") != null) {
+			String courseid = request.getParameter("courseid");
+			CourseDAO coursedao = new CourseDAO();
+			CourseBean courseInfo = coursedao.getSingleCourse(courseid);
+			session.setAttribute("session_courseid", courseid);
+			session.setAttribute("session_coursename", courseInfo.getCoursename());
+
+			RegistrationDAO regdao = new RegistrationDAO();
+			RegistrationBean user = regdao.getUserInfo(courseInfo.getInstructorid());
+
+			System.out.println(courseInfo.getCoursename());
+			request.setAttribute("courseInfo", courseInfo);
+			request.setAttribute("instructorInfo", user);
+			// System.out.println(courseInfo.getCoursename());
+			RequestDispatcher rd = request.getRequestDispatcher("courseinfo.jsp");
+			rd.forward(request, response);
+		} else {
+			System.out.println("Session not set.");
+			request.setAttribute("loginpageMessage", "Please login first to access page.");
+			request.getRequestDispatcher("/login.jsp").forward(request, response);
+		}
+
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

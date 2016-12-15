@@ -20,42 +20,50 @@ import com.mvc.pojo.RegistrationBean;
 /**
  * Servlet implementation class CourseContent
  */
-@WebServlet({"/CourseContent","/CourseContent?courseid="})
+@WebServlet({ "/CourseContent", "/CourseContent?courseid=" })
 public class CourseContent extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CourseContent() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public CourseContent() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		String courseid = request.getParameter("courseid");
 		HttpSession session = request.getSession();
-		if(session!=null){
+		if (session.getAttribute("session_userid") != null) {
 			ArrayList<CourseContentBean> contentList = new ArrayList<CourseContentBean>();
 			CourseDAO coursedao = new CourseDAO();
 			contentList = coursedao.getCourseContentList(courseid);
-			
+
 			request.setAttribute("contentlist", contentList);
 			RequestDispatcher rd = request.getRequestDispatcher("coursecontent.jsp");
 			rd.forward(request, response);
+		} else {
+			System.out.println("Session not set.");
+			request.setAttribute("loginpageMessage", "Please login first to access page.");
+			request.getRequestDispatcher("/login.jsp").forward(request, response);
 		}
-		
+
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

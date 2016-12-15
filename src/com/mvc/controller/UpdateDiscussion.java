@@ -33,7 +33,7 @@ public class UpdateDiscussion extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		HttpSession session = request.getSession();
-		if (session != null) {
+		if (session.getAttribute("session_userid") != null) {
 			System.out.println("Inside"+getClass());
 			String id = request.getParameter("discussionid");
 			if (request.getParameter("action").equals("delete")) {
@@ -45,6 +45,9 @@ public class UpdateDiscussion extends HttpServlet {
 					response.sendRedirect("DiscussionBoard?courseid="+session.getAttribute("session_courseid"));
 				}
 			}
+		}else{
+			request.setAttribute("loginpageMessage", "Please login first to access page.");
+			request.getRequestDispatcher("/login.jsp").forward(request, response);
 		}
 	}
 

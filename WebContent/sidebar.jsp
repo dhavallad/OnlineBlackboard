@@ -7,9 +7,9 @@
 	</div>
 	<div class="sidebar-menu">
 		<ul class="menu-items">
-			<li class="m-t-30"><a href="home.jsp"><span class="title">Home</span></a>
+			<li class="m-t-30"><a href="Home"><span class="title">Home</span></a>
 				<span class="icon-thumbnail"><i class="pg-home"></i></span>
-			<li class=""><a href="javascript:;"><span class="title">Courses
+			<!-- <li class=""><a href="javascript:;"><span class="title">Courses
 				</span> <span class="arrow"></span></a> <span class="icon-thumbnail"><i
 					class="pg-menu_lv"></i></span>
 				<ul class="sub-menu">
@@ -40,10 +40,10 @@
 							<li><a href="javascript:;">Assignment</a></li>
 							<li><a href="javascript:;">Discussion Board</a></li>
 						</ul></li>
-				</ul></li>
+				</ul></li> -->
 			<li class=""><a href="CreateCourse"><span
 					class="title">Create Course</span></a> <span
-				class="icon-thumbnail"><i class="pg-home"></i></span>
+				class="icon-thumbnail"><i class="pg-menu_lv"></i></span>
 		</ul>
 		<div class="clearfix"></div>
 	</div>
